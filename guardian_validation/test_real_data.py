@@ -3,17 +3,17 @@
 FINAL CORRECTED VALIDATION - ALL REAL BUGS FIXED
 =================================================
 Applied fixes:
-1. ✅ Clip-level split (no leakage)
-2. ✅ Fixed noise floor (realistic SNR)
-3. ✅ Both raw + hangover
-4. ✅ Correct latency (8ms hop)
-5. ✅ Correct hangover (100ms = 13 frames)
-6. ✅ VAD frame alignment FIXED (matches feature frames)
-7. ✅ Integer SNR keys (not float)
-8. ✅ Clipping prevention + skip logic
+1.  Clip-level split (no leakage)
+2.  Fixed noise floor (realistic SNR)
+3.  Both raw + hangover
+4.  Correct latency (8ms hop)
+5.  Correct hangover (100ms = 13 frames)
+6.  VAD frame alignment FIXED (matches feature frames)
+7.  Integer SNR keys (not float)
+8.  Clipping prevention + skip logic
 
 IGNORED:
-- ❌ num_frames +1 (ChatGPT was wrong, current is correct)
+-  num_frames +1 (ChatGPT was wrong, current is correct)
 
 Author: Guardian Project (FINAL VERSION)
 Date: 2026-02-02
@@ -230,10 +230,10 @@ def load_librispeech_clips(librispeech_path, max_clips=80, max_duration=3.0):
     librispeech_path = Path(librispeech_path)
     
     if not librispeech_path.exists():
-        print(f"❌ Error: Path not found: {librispeech_path}")
+        print(f" Error: Path not found: {librispeech_path}")
         return []
     
-    print(f"\n🔍 Loading audio clips from: {librispeech_path}")
+    print(f"\nLoading audio clips from: {librispeech_path}")
     
     for speaker_dir in sorted(librispeech_path.iterdir()):
         if not speaker_dir.is_dir():
@@ -502,7 +502,7 @@ def test_snr_robustness_final(detector, test_clips, fs=SAMPLE_RATE):
             all_hang.append(hang)
         
         if len(all_raw) == 0:
-            print(f"   ⚠️  All samples clipped at {speech_target_db} dB!")
+            print(f"    All samples clipped at {speech_target_db} dB!")
             continue
         
         mean_snr = np.mean(snr_list)
@@ -533,7 +533,7 @@ def run_final_validation(librispeech_path):
     print("\n" + "="*80)
     print("FINAL VALIDATION - ALL BUGS FIXED".center(80))
     print("="*80)
-    print("\n✅ All fixes applied:")
+    print("\n All fixes applied:")
     print("   1. Clip-level split (no leakage)")
     print("   2. Fixed noise floor (realistic SNR)")
     print("   3. Correct latency (8ms hop)")
@@ -547,7 +547,7 @@ def run_final_validation(librispeech_path):
     all_clips = load_librispeech_clips(librispeech_path, max_clips=80)
     
     if len(all_clips) < 20:
-        print(f"\n❌ Need 20+ clips, found {len(all_clips)}")
+        print(f"\n Need 20+ clips, found {len(all_clips)}")
         print("\nMake sure soundfile is installed:")
         print("   pip install soundfile")
         return None
@@ -610,7 +610,7 @@ def run_final_validation(librispeech_path):
               f"{clip_cnt:>3d}/20     {snr_raw[speech_db]:>5.1f}%    "
               f"{snr_hang[speech_db]:>5.1f}%")
     
-    print(f"\nMonotonic: {'✅ OK' if mono else '❌ FAIL'}")
+    print(f"\nMonotonic: {' OK' if mono else ' FAIL'}")
     
     # Final assessment
     print(f"\n{'='*80}")
@@ -668,17 +668,17 @@ def run_final_validation(librispeech_path):
     snr0_key = min(snr_raw.keys(), key=lambda x: abs(x - (-30)))  # Closest to 0dB SNR
     snr0_val = snr_raw[snr0_key]
     
-    print(f"\n💡 Key Insight:")
+    print(f"\n Key Insight:")
     if 45 <= snr0_val <= 65:
-        print(f"   ✅ SNR ~0dB RAW = {snr0_val:.1f}% is REALISTIC")
-        print(f"   ✅ These numbers are trustworthy")
+        print(f"    SNR ~0dB RAW = {snr0_val:.1f}% is REALISTIC")
+        print(f"    These numbers are trustworthy")
     elif snr0_val > 65:
-        print(f"   ⚠️  SNR ~0dB RAW = {snr0_val:.1f}% seems high")
+        print(f"     SNR ~0dB RAW = {snr0_val:.1f}% seems high")
     else:
-        print(f"   ⚠️  SNR ~0dB RAW = {snr0_val:.1f}% is low")
+        print(f"     SNR ~0dB RAW = {snr0_val:.1f}% is low")
     
     print("\n" + "="*80)
-    print("✅ VALIDATION COMPLETE".center(80))
+    print(" VALIDATION COMPLETE".center(80))
     print("="*80)
     
     return {
@@ -696,4 +696,5 @@ if __name__ == "__main__":
         print("Usage: python test_librispeech_FINAL.py /path/to/LibriSpeech/test-clean")
         sys.exit(1)
     
+
     results = run_final_validation(sys.argv[1])
