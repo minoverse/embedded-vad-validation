@@ -101,8 +101,6 @@ If the gate blocks 90% of non-speech frames:
 ## Repository Structure
 ```
 ├── audio_gate_simulation.py    # Main simulation engine
-├── guardian.py                 # Core VAD logic
-├── validate.py                 # Validation pipeline
 ├── test_real_data.py          # Real-world audio testing
 ├── feature_distributions.png   # Feature analysis plots
 ├── snr_performance.png        # Performance across SNR levels
